@@ -1,0 +1,18 @@
+{
+  "name": "Mis Finanzas",
+  "short_name": "Mis Finanzas",
+  "description": "Control personal de gastos y ahorros",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f7fb",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

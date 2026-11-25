@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#7c3aed">
+  <meta name="description" content="Control personal de gastos y ahorros">
+  <title>Mis Finanzas</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Mis finanzas</p>
+        <h1 id="page-title">Resumen</h1>
+      </div>
+      <button class="icon-button" id="open-menu" type="button" aria-label="Abrir opciones">•••</button>
+    </header>
+
+    <section class="view active" id="dashboard-view">
+      <article class="balance-card">
+        <div class="balance-card__header">
+          <span>Balance disponible</span>
+          <span class="balance-card__dot"></span>
+        </div>
+        <strong id="balance">$0.00</strong>
+        <div class="balance-card__stats">
+          <div>
+            <span>Ahorro total</span>
+            <b id="total-savings">$0.00</b>
+          </div>
+          <div>
+            <span>Gastos totales</span>
+            <b id="total-expenses">$0.00</b>
+          </div>
+        </div>
+      </article>
+
+      <div class="section-heading">
+        <h2>Esta semana</h2>
+        <span id="week-label"></span>
+      </div>
+
+      <article class="week-card">
+        <div class="week-card__top">
+          <div class="savings-ring" id="savings-ring">
+            <div>
+              <strong id="weekly-savings">$0</strong>
+              <span>ahorrado</span>
+            </div>
+          </div>
+          <div class="week-card__summary">
+            <p><span class="legend savings"></span>Ahorro <b id="weekly-savings-list">$0</b></p>
+            <p><span class="legend expense"></span>Gastos <b id="weekly-expenses">$0</b></p>
+          </div>
+        </div>
+      </article>
+
+      <div class="section-heading">
+        <h2>Movimientos recientes</h2>
+      </div>
+      <div class="transaction-list" id="recent-list"></div>
+    </section>
+
+    <section class="view" id="expenses-view">
+      <div class="section-heading top">
+        <h2>Mis gastos</h2>
+        <button class="text-button" id="add-expense-header" type="button">+ Nuevo</button>
+      </div>
+      <article class="summary-strip">
+        <div>
+          <span>Total gastado</span>
+          <strong id="expense-page-total">$0.00</strong>
+        </div>
+        <div>
+          <span>Este mes</span>
+          <strong id="expense-month-total">$0.00</strong>
+        </div>
+      </article>
+      <div class="transaction-list" id="expense-list"></div>
+    </section>
+
+    <section class="view" id="savings-view">
+      <div class="section-heading top">
+        <h2>Mis ahorros</h2>
+        <button class="text-button" id="add-saving-header" type="button">+ Nuevo</button>
+      </div>
+      <article class="savings-hero">
+        <span>Ahorro acumulado</span>
+        <strong id="savings-page-total">$0.00</strong>
+        <p id="savings-count">0 depósitos registrados</p>
+      </article>
+      <div class="transaction-list" id="savings-list"></div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button class="nav-button active" type="button" data-view="dashboard">
+        <span class="nav-icon">⌂</span>
+        <span>Inicio</span>
+      </button>
+      <button class="nav-button" type="button" data-view="expenses">
+        <span class="nav-icon">−</span>
+        <span>Gastos</span>
+      </button>
+      <button class="nav-button nav-add" id="quick-add" type="button" aria-label="Agregar movimiento">
+        <span>+</span>
+      </button>
+      <button class="nav-button" type="button" data-view="savings">
+        <span class="nav-icon">＋</span>
+        <span>Ahorros</span>
+      </button>
+      <button class="nav-button" type="button" data-view="more">
+        <span class="nav-icon">···</span>
+        <span>Más</span>
+      </button>
+    </nav>
+  </main>
+
+  <dialog id="transaction-dialog">
+    <form method="dialog" id="transaction-form">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">Nuevo movimiento</p>
+          <h2 id="dialog-title">Registrar gasto</h2>
+        </div>
+        <button class="icon-button close-dialog" type="button" aria-label="Cerrar">×</button>
+      </div>
+
+      <div class="type-switch" role="group" aria-label="Tipo de movimiento">
+        <button type="button" class="active" data-type="expense">Gasto</button>
+        <button type="button" data-type="saving">Ahorro</button>
+      </div>
+
+      <label>
+        <span>Monto</span>
+        <div class="amount-input">
+          <b>$</b>
+          <input id="amount" name="amount" type="number" min="0.01" step="0.01" required placeholder="0.00">
+        </div>
+      </label>
+
+      <label>
+        <span id="description-label">Concepto</span>
+        <input id="description" name="description" type="text" maxlength="60" required placeholder="Ej. Supermercado">
+      </label>
+
+      <label>
+        <span>Fecha</span>
+        <input id="date" name="date" type="date" required>
+      </label>
+
+      <button class="primary-button" id="save-button" type="submit">Guardar gasto</button>
+    </form>
+  </dialog>
+
+  <dialog id="menu-dialog">
+    <form method="dialog" class="menu-sheet">
+      <h2>Opciones</h2>
+      <button type="button" id="export-data">Exportar movimientos</button>
+      <button type="button" id="clear-data" class="danger">Borrar todos los datos</button>
+      <button type="button" class="close-menu">Cerrar</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
